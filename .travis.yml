@@ -14,7 +14,7 @@ depoly:
   app: "docker-react"
   env: "DockerReact-env"
   bucket_name: "elasticbeanstalk-us-west-2-337299574287"
-  bucket_path: "cocker-react"
+  bucket_path: "docker-react"
   on:
     branch: master
   #define access keys and secreat keys -generated on AWS -saved to travis (environment as secreat DO NOT ENABLE side bar)
