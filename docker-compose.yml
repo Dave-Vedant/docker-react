@@ -1,0 +1,24 @@
+version: '3'
+services:
+  web:                       #here, web is first container (hosting server)
+    build:
+      context: .
+      dockerfile: Dockerfile.dev
+    ports:
+      - "3000:3000"
+    stdin_open: true       #for exit code 0 (bug - solution)
+    environment:
+      - CHOKIDAR_USEPOLLING= true #for code update (auto reload issue) , and do not put space between "UsePolling="
+    volumes: 
+      - /app/node_modules
+      - .:/app
+
+  tests:               #test, is second container (responsible for test)
+    build:
+      context: .
+      dockerfile: Dockerfile.dev
+    volumes:
+      - /app/node_modules
+      - .:/app
+    command: ["npm", "run", "test"]  #override of command (because default command is with "start" and for test we need "test")
+
