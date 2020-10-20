@@ -18,8 +18,7 @@ depoly:
   on:
     branch: master
   #define access keys and secreat keys -generated on AWS -saved to travis (environment as secreat DO NOT ENABLE side bar)
-  access_key_id:
-    secure: "$AWS_ACCESS_KEY"
+  access_key_id: $AWS_ACCESS_KEY
   secret_access_key:
     secure: "$AWS_SECRET_KEY"
   
