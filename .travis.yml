@@ -5,8 +5,22 @@ services:
 before_install:
   - docker build -t vedantdave77/docker-react -f Dockerfile.dev .   
 
-scripts:
+script:
   - docker run -e CI=true vedantdave77/docker-react npm run test  #useful to exit test command right away (otherwise it continuously wait for the reply (p,q,o,enter))
+
+depoly:
+  provider: elasticbeanstalk
+  region: "us-west-2"
+  app: "docker-react"
+  env: "DockerReact-env"
+  bucket_name: "elasticbeanstalk-us-west-2-337299574287"
+  bucket_path: "cocker-react"
+  on:
+    branch: master
+  #define access keys and secreat keys -generated on AWS -saved to travis (environment as secreat DO NOT ENABLE side bar)
+  access_key_id: $AWS_ACCESS_KEY
+  secret_access_key:
+    secure: "$AWS_SECRET_KEY"
 
 
 #here,Explaination
@@ -14,3 +28,5 @@ scripts:
 # services tell travis to generate docker first 
 # first install : install dockerfile.dev before doing anything to "." (current directory)
 # -t <docker_name> command becuase its not easy to get the Docker_ID when we use the Travis. 
+# deploy give command to travis where to deploy after successful test
+# http://dockerreact-env.eba-rhzyrzmu.us-west-2.elasticbeanstalk.com/
